@@ -1,19 +1,21 @@
 % FINITE DIFFERENCE CODE
 % 2D code for flow over a flat plate uing EXPLICIT method for solving the Linear Algebric Equations.
 % This program was a result of a course work (ME704) at Department of Mechanical Engineering at IIT Bombay.
-% It is wriiten for MATLAB. Copy and paste it in MATLAB to run it.
+% It is wriiten for MATLAB. Copy and paste it in MATLAB to run it. 
+% Aurthor: Shivam Swarnakar (shivamswarnakar72@gmail.com)
 
 clc;
 clear; 
 
-L = 1;
-H = L;
-imax = 201;
-jmax = 51;
+L = 1; % Dimension of flat plate
+H = L; % Height of the domain
+
+imax = 201; % Number of grid points in x-direction
+jmax = 51;  % Number of grid ponits in y-direction
 
 % Stability criteria delx <= 0.5*dely^2*Re*u
 
-delx = L/(imax-1); 
+delx = L/(imax-1);   
 dely = H/(jmax -1);
 
 Re = 100;
