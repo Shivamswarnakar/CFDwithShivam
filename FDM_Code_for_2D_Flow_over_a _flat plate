@@ -1,7 +1,7 @@
 % FINITE DIFFERENCE CODE
 % 2D code for flow over a flat plate uing EXPLICIT method for solving the Linear Algebric Equations.
 % This program was a result of a course work (ME704) at Department of Mechanical Engineering at IIT Bombay.
-% It is wriiten for MATLAB. Copy and paste it in MATLAB to run it. 
+% It is written using MATLAB. Copy and paste it in MATLAB to run it. 
 % Aurthor: Shivam Swarnakar (shivamswarnakar72@gmail.com)
 
 clc;
@@ -18,7 +18,7 @@ jmax = 51;  % Number of grid ponits in y-direction
 delx = L/(imax-1);   
 dely = H/(jmax -1);
 
-Re = 100;
+Re = 100; %Reylonds number
 
 u(1:jmax,1:imax) = 1;
 v(1:jmax,1:imax) = 0;
@@ -36,7 +36,7 @@ v(jmax,1:imax) = 0;
 u_old = u;
 v_old = v;
 
-eps = 0.00001;
+eps = 0.00001; %
 
 n=1;
 err(1:n) = 1;
