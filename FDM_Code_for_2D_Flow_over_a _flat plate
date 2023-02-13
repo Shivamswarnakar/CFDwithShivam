@@ -1,5 +1,7 @@
-# 2D code for flow over a flat plate uind finite difference method and explicit method for solving the Linear Algebric Equations.
-# This program was a result of a course work (ME704) at IIT Bombay.
+% FINITE DIFFERENCE CODE
+% 2D code for flow over a flat plate uing EXPLICIT method for solving the Linear Algebric Equations.
+% This program was a result of a course work (ME704) at Department of Mechanical Engineering at IIT Bombay.
+% It is wriiten for MATLAB. Copy and paste it in MATLAB to run it.
 
 clc;
 clear; 
