@@ -1,0 +1,99 @@
+# 2D code for flow over a flat plate uind finite difference method and explicit method for solving the Linear Algebric Equations.
+# This program was a result of a course work (ME704) at IIT Bombay.
+
+clc;
+clear; 
+
+L = 1;
+H = L;
+imax = 201;
+jmax = 51;
+
+% Stability criteria delx <= 0.5*dely^2*Re*u
+
+delx = L/(imax-1); 
+dely = H/(jmax -1);
+
+Re = 100;
+
+u(1:jmax,1:imax) = 1;
+v(1:jmax,1:imax) = 0;
+
+%Initial condition
+u(1:jmax,1) = 1;
+v(1:jmax,1) = 0;
+%Top Boundary condition
+u(1,1:imax) = 1;
+v(1,1:imax) = 0; 
+%Bottom Boundary condition
+u(jmax,1:imax) = 0;   
+v(jmax,1:imax) = 0;
+
+u_old = u;
+v_old = v;
+
+eps = 0.00001;
+
+n=1;
+err(1:n) = 1;
+
+aP =1;
+
+while (abs(err(end)) >= eps)
+    
+    for i = 1:imax-1
+        for j=2:jmax-1
+            
+            aN = (delx/(u(j,i)*dely))*((1/(Re*dely))-(v(j,i)/2));
+            aS = (delx/(u(j,i)*dely))*((1/(Re*dely))+(v(j,i)/2));
+            b  = (1 - ((2*delx)/(u(j,i)*Re*dely*dely)))*u(j,i);
+            
+            u(j,i+1) = u(j+1,i)*aN + u(j-1,i)*aS + b;
+            u(j,i+1) = u_old(j,i+1) + 0.9*(u(j,i+1)-u_old(j,i+1));
+            
+        end      
+        for j =1:jmax-1
+            
+            v(j+1,i+1) = v(j,i+1)-((dely/(2*delx))*(u(j,i+1)+u(j+1,i+1)-u(j,i)-u(j+1,i)));
+            v(j+1,i+1) = v_old(j+1,i+1) + 0.9*(v(j+1,i+1)-v_old(j+1,i+1));
+            
+        end 
+    end
+        err1 = max(max(u -u_old));
+        err2 = max(max(v -v_old));
+        err(n) = max(err1,err2);
+        
+        u_old = u;
+        v_old = v;
+        
+        plot(err,'-k','LineWidth',1)
+        xlabel('Number of iteration');
+        ylabel('Error');
+        drawnow;
+        
+        n =n+1;
+end
+
+%% ploting  
+L_len = linspace(0,L,imax);
+H_len = linspace(H,0,jmax);
+
+figure;
+contourf(L_len,H_len,u,20,'LineStyle','none');
+colormap('jet');
+colorbar;
+xlabel('x','FontSize',15);
+ylabel('y','FontSize',15);
+title('u (m/s)','FontSize',15)
+axis equal;
+% saveas(gcf,'X-velocity_contour.png');
+
+figure;
+contourf(L_len,H_len,v,20,'LineStyle','none');
+colormap('jet');
+colorbar;
+xlabel('x','FontSize',15);
+ylabel('y','FontSize',15);
+title('v (m/s)','FontSize',15)
+axis equal;
+% saveas(gcf,'Y-velocity_contour.png');
